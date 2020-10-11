@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title> Profile | Pološero </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="https://login.polo-sero.cz/default.css">
+  <link rel="stylesheet" media="screen" href="https://polo-sero.cz/styles/theme.css">
+  <link rel="stylesheet" href="main.css">
+  <script src="https://login.polo-sero.cz/lib.js"></script>
+  <script src="main.js"></script>
+</head>
+<body>
+  <nav>
+    <a href="#"> Profile </a>
+    <a href="#info" hidden> Postava </a>
+    <a href="#skills" hidden> Dovednosti </a>
+    <button type="button" onclick="logout()"> Logout </button>
+  </nav>
+
+  <!-- - - - -->
+  <!-- INDEX -->
+  <form id="user-info" data-page="index" hidden>
+    <fieldset disabled>
+      <legend>Uživatel</legend>
+      <label> Přihlašovací jméno
+        <input type="text" name="nick" />
+      </label>
+      <label> e-mail
+        <input type="text" name="mail" />
+      </label>
+      <label> Telefon
+        <a class="icon" href="javascript:openEditPhone()" title="Upravit telefon">
+          &#x270e;
+        </a>
+        <input type="text" name="phone" />
+      </label>
+      <label> Datum narození
+        <a class="icon" href="javascript:openEditBorn()" title="Upravit datum narození">
+          &#x270e;
+        </a>
+        <input type="text" name="born" />
+      </label>
+      <label> SPZ (pro řidiče)
+        <a class="icon" href="javascript:openEditSPZ()" title="Upravit SPZ">
+          &#x270e;
+        </a>
+        <input type="text" name="spz" />
+      </label>
+      <label> Zaplaceno
+        <select name="paid">
+          <option value="0"> Ne </option>
+          <option value="1"> Ano </option>
+        </select>
+      </label>
+      <label> Variabilní symbol
+        <input type="text" name="id" />
+      </label>
+      <span class="meta-info">
+        Registrační poplatek: 350Kč<br />
+        na účet 1775257017/3030<br />
+        <a href="https://polo-sero.cz/docs/gdpr.pdf" target="_blank">
+          Informace o zpracování osobních údajů
+        </a>
+      </span>
+    </fieldset>
+  </form>
+
+  <form id="character-info" data-page="index" onsubmit="updateCharacter(this, event)" hidden>
+    <fieldset disabled>
+      <legend> Postava </legend>
+      <span id="char-info-status-text" class="meta-info"></span>
+      <button type="button" class="close" onclick="editCharInfo(false)">X</button>
+      <label> Jméno
+        <input type="text" name="name" />
+      </label>
+      <label> Rasa
+        <select class="races-select" name="race_id">
+        </select>
+      </label>
+      <label> Frakce
+        <select class="factions-select" name="faction_id">
+        </select>
+      </label>
+      <span class="meta-info">
+        Stručný popis frakcí:
+        <a href="https://polo-sero.cz/info.html" target="_blank">polo-sero.cz/info.html</a>
+        v sekci <i>Frakce</i>
+      </span>
+      <button type="submit" hidden> Uložit </button>
+    </fieldset>
+    <button id="edit-char-btn" type="button" onclick="editCharInfo(true)" hidden>
+      Upravit postavu
+    </button>
+    <button id="request-char-btn" type="button" onclick="requestChar()" hidden>
+      Požádat o postavu
+      <span> Uzamkne jméno, rasu a frakci </span>
+    </button>
+  </form>
+  <button id="character-add-btn" data-page="index" type="button" onclick="openAddChar(true)" hidden>
+    Vytvořit postavu
+  </button>
+  <form hidden
+    id="character-add-form"
+    class="dialog"
+    data-page="index"
+    onsubmit="newCharacter(this, event)"
+  >
+    <fieldset>
+      <legend> Vytvořit postavu </legend>
+      <a onclick="openAddChar(false)" class="close">X</a>
+      <label> Jméno
+        <input type="text" name="name" />
+      </label>
+      <button type="submit"> Vytvořit </button>
+    </fieldset>
+  </form>
+
+  <ul id="character-list" data-page="index" hidden>
+  </ul>
+
+  <template id="char-item">
+    <li class="char">
+      <span class="id"></span>
+      <a class="name"></a>
+      <span class="faction"></span>
+      <span class="race"></span>
+      <span class="status"></span>
+      <button onclick="acceptChar(${Number(char.id)})" title="schválit" hidden>
+        &#x2714;
+      </button>
+    </li>
+  </template>
+
+
+  <!-- -  - -->
+  <!-- CHAR -->
+  <form id="char-detail" data-page="char" onsubmit="ignoreSubmit(this, event)">
+    <fieldset disabled>
+      <legend> User </legend>
+      <label> user
+        <input type="text" name="user_nick" />
+      </label>
+      <label onclick="alert(this.childNodes[1].value)"> mail
+        <input type="text" name="user_mail" />
+      </label>
+      <label> born
+        <input type="text" name="user_born" />
+      </label>
+      <label> phone
+        <input type="text" name="user_phone" />
+      </label>
+      <label> paid
+        <input type="text" name="user_paid" />
+      </label>
+      <label> status
+        <input type="text" name="_status" />
+      </label>
+    </fieldset>
+    <fieldset disabled>
+      <legend> Char </legend>
+      <label> Jméno
+        <input type="text" name="name" />
+      </label>
+      <label> Rasa
+        <select class="races-select" name="race_id">
+        </select>
+      </label>
+      <label> Frakce
+        <select class="factions-select" name="faction_id">
+        </select>
+      </label>
+    </fieldset>
+  </form>
+  <div data-page="char" id="char-detail-skills">
+  </div>
+  <div data-page="char" id="char-detail-lore">
+    <nav></nav>
+  </div>
+
+
+  <!---------->
+  <!-- INFO -->
+  <main id="info" data-page="info">
+    <nav></nav>
+  </main>
+
+  <template id="info-article">
+    <article class="document">
+      <!-- paragraphs here -->
+    </article>
+  </template>
+
+  <template id="info-radio-button">
+    <input type="radio" name="lore-document">
+  </template>
+
+  <template id="info-snippet">
+    <div class="snippet">
+      <button type="button" class="edit" hidden> &#x270e; </button>
+
+    </div>
+  </template>
+
+  <form hidden
+    id="lore-edit-dialog"
+    class="dialog"
+    onsubmit="updateLore(this, event)"
+  >
+    <fieldset>
+      <!-- <legend> Lore edit </legend> -->
+      <a onclick="openLoreEdit(false)" class="close">X</a>
+      <input type="hidden" name="id" />
+      <label> Obsah
+        <textarea name="content"></textarea>
+      </label>
+      <button type="submit"> Uložit </button>
+    </fieldset>
+  </form>
+
+
+  <!---------------->
+  <!-- Dovednosti -->
+  <div data-page="skills" id="character-skills">
+  </div>
+
+  <template id="char-talent">
+    <div class="talent">
+      <h3 class="name"></h3>
+      <p class="description"></p>
+      <ul>
+      </ul>
+    </div>
+  </template>
+
+  <template id="char-talent-produces">
+    <dt>
+      <span class="energy_name"></span>
+      <span class="intensity"></span>
+    </dt>
+    <dd class="talent-energy">
+      <span class="effect_name"></span>
+      <span class="application_name"></span>
+    </dd>
+    <dd class="talent-energy-counter">
+      <span class="c_effect_name"></span>
+      <span class="application_note"></span>
+    </dd>
+  </template>
+
+
+  <footer>
+    Problémy, nejasnosti či připomínky piš na
+    <a href="mailto:polosero.org@gmail.com">polosero.org@gmail.com</a>
+  </footer>
+</body>
+</html>

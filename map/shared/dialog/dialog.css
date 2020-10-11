@@ -1,0 +1,35 @@
+:host {
+    position: fixed;
+    color: #bbb;
+    background-color: #111;
+    box-sizing: border-box;
+    padding: 1rem;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+}
+
+.Dialog--close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    z-index: 12;
+}
+
+:host(.Dialog--loading)::after {
+    content: "loading...";
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 11;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: silver;
+    font-weight: bold;
+    text-align: center;
+    line-height: 30vh;
+}

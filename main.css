@@ -1,0 +1,192 @@
+body {
+  display: flex;
+  align-items: flex-start;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  margin: 0;
+  min-height: 100vh;
+}
+
+body > section {
+  box-shadow: 1px 1px 2px 1px gray;
+  margin: 1vw;
+  padding: 5px;
+  width: 30rem;
+  max-width: 100vw;
+}
+body > nav {
+  width: 100%;
+  padding: 1vh 1vw;
+  margin-bottom: 1vh;
+}
+body > nav > a {
+    margin-right: 0.5rem;
+    padding: 0.2rem;
+    display: inline-block;
+}
+body > nav > button:last-child {
+  float: right;
+}
+body > form:not(.dialog) {
+    max-width: 25rem;
+}
+
+main {
+    width: 60rem;
+    max-width: 100%;
+    padding: 2px;
+    margin: auto;
+    background-color: transparent;
+}
+
+footer {
+    position: sticky;
+    top: 100%;
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+}
+footer > a { color: silver; }
+
+form.dialog > fieldset ~ button {
+    display: none;
+}
+
+.char > :not(:first-child) {
+    margin-left: 0.5em;
+}
+.char > .status, .char > .id {
+    font-variant: small-caps;
+    color: gray;
+}
+.char > .id::before { content: "["; }
+.char > .id::after { content: "]"; }
+
+.snippet {
+    background-color: black;
+    padding: 1vh 1vw;
+    border: 1px solid dimgray;
+    clear: both;
+}
+.snippet:not(:first-of-type) {
+    border-top-width: 0;
+}
+.snippet > .edit {
+    float: right;
+}
+.snippet > img {
+    max-width: 100%;
+    height: auto
+}
+@media screen and (min-width: 40em) {
+    .snippet > img {
+        max-width: 20em;
+    }
+}
+
+
+#lore-edit-dialog textarea {
+    height: 50vh;
+}
+
+
+#char-detail-lore > nav,
+#info > nav {
+    display: flex;
+    flex-wrap: wrap;
+}
+#char-detail-lore > nav > label,
+#info > nav > label {
+    padding: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+#char-detail-lore > nav > label:hover,
+#info > nav > label:hover {
+    text-decoration: underline;
+}
+
+
+.talent {
+    border: 1px solid white;
+    padding: 0.5rem;
+    max-width: 30rem;
+}
+.talent > h3 {
+    margin: 0;
+}
+.talent-energy > .effect_name:not(:empty)::before {
+    content: "→ ";
+    color: gray;
+}
+.talent-energy > .effect_name {
+    font-weight: bold;
+}
+.talent-energy-counter > .c_effect_name:not(:empty)::before {
+    content: "nebo imunita na: ";
+    color: gray;
+    font-size: 0.9rem;
+}
+.talent-energy-counter > .application_note {
+    color: gray;
+    font-size: 0.9rem;
+}
+
+
+.document,
+#char-detail-lore > input,
+#info > input {
+    display: none;
+}
+#document--1:checked ~ .document--1, #document--1a:checked ~ .document--1a,
+#document--2:checked ~ .document--2, #document--2a:checked ~ .document--2a,
+#document--3:checked ~ .document--3, #document--3a:checked ~ .document--3a,
+#document--4:checked ~ .document--4, #document--4a:checked ~ .document--4a,
+#document--5:checked ~ .document--5, #document--5a:checked ~ .document--5a,
+#document--6:checked ~ .document--6, #document--6a:checked ~ .document--6a,
+#document--7:checked ~ .document--7, #document--7a:checked ~ .document--7a,
+#document--8:checked ~ .document--8, #document--8a:checked ~ .document--8a,
+#document--9:checked ~ .document--9, #document--9a:checked ~ .document--9a,
+#document--10:checked ~ .document--10, #document--10a:checked ~ .document--10a,
+#document--11:checked ~ .document--11, #document--11a:checked ~ .document--11a,
+#document--12:checked ~ .document--12, #document--12a:checked ~ .document--12a {
+    display: block;
+}
+#document--1:checked ~ nav > [for=document--1], #document--1a:checked ~ nav > [for=document--1a],
+#document--2:checked ~ nav > [for=document--2], #document--2a:checked ~ nav > [for=document--2a],
+#document--3:checked ~ nav > [for=document--3], #document--3a:checked ~ nav > [for=document--3a],
+#document--4:checked ~ nav > [for=document--4], #document--4a:checked ~ nav > [for=document--4a],
+#document--5:checked ~ nav > [for=document--5], #document--5a:checked ~ nav > [for=document--5a],
+#document--6:checked ~ nav > [for=document--6], #document--6a:checked ~ nav > [for=document--6a],
+#document--7:checked ~ nav > [for=document--7], #document--7a:checked ~ nav > [for=document--7a],
+#document--8:checked ~ nav > [for=document--8], #document--8a:checked ~ nav > [for=document--8a],
+#document--9:checked ~ nav > [for=document--9], #document--9a:checked ~ nav > [for=document--9a],
+#document--10:checked ~ nav > [for=document--10], #document--10a:checked ~ nav > [for=document--10a],
+#document--11:checked ~ nav > [for=document--11], #document--11a:checked ~ nav > [for=document--11a],
+#document--12:checked ~ nav > [for=document--12], #document--12a:checked ~ nav > [for=document--12a] {
+    color: red;
+}
+
+body[data-hash=index] > nav > a[href="#"],
+body[data-hash=skills] > nav > a[href="#skills"],
+body[data-hash=info] > nav > a[href="#info"] {
+    color: red;
+}
+
+
+@media print {
+    html {
+      font-size: 12px !important;
+    }
+    body {
+        display: block;
+    }
+    .snippet, .talent {
+        border: none;
+        page-break-inside: avoid;
+    }
+    .document {
+        display: block !important;
+        border-top: 1px solid silver;
+    }
+}
